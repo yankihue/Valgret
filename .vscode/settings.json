@@ -1,0 +1,9 @@
+{
+    "python.pythonPath": "C:\\Users\\ASUS\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\votingapp-m0bmzlOa-py3.9\\Scripts\\python.exe",
+    "python.formatting.provider": "black",
+    "python.linting.banditEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": false,
+    "python.linting.enabled": true
+}
