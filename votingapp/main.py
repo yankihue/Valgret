@@ -7,11 +7,11 @@ import os
 from fastapi_sqlalchemy import DBSessionMiddleware #middleware helper 
 
 #Also it will be will be import load_dotenv to connect to our db 
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 
 #this line is to connect to our base dir and connect to our .env file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-load_dotenv(os.path.join(BASE_DIR, ".env"))
+load_dotenv(find_dotenv())
 
 app = FastAPI()
 
