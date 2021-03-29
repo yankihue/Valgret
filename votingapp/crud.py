@@ -4,8 +4,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from . import model, schema
 
-import bcrypt
-
 
 async def get_user(db: AsyncSession, user_id: int):
     db_execute = await db.execute(select(model.User).where(model.User.id == user_id))
@@ -23,7 +21,7 @@ async def get_users(db: AsyncSession, skip: int = 0, limit: int = 100):
 
 
 async def create_user(db: AsyncSession, user: schema.UserCreate):
-    hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), bcrypt.gensalt())
+    hashed_password = user.password
     db_user = model.User(email=user.email, hashed_password=hashed_password)
     db.add(db_user)
     await db.commit()

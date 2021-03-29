@@ -65,3 +65,4 @@ async def read_items(
     skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
 ):
     return await crud.get_items(db, skip=skip, limit=limit)
+    
