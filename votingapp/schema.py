@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class ItemBase(BaseModel):
@@ -49,6 +50,7 @@ class ElectionCreate(ElectionBase):
 class Election(ElectionBase):
     id: int
     owner_id: int
+    created_date: datetime
 
     class Config:
         orm_mode = True
