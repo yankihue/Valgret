@@ -9,7 +9,7 @@ Clone the repository and run:
 ```bash
 poetry install
 ```
-To install required dependencies. Afterwards, create an .env file containing:
+to install required dependencies. Afterwards, create an .env file containing:
 
 
 ```
