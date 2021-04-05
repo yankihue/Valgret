@@ -38,6 +38,40 @@ class User(UserBase):
         orm_mode = True
 
 
+class CandidateBase(BaseModel):
+    info: str
+
+
+class CandidateCreate(CandidateBase):
+    pass
+
+
+class Candidate(CandidateBase):
+    id: int
+    election_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class BallotBase(BaseModel):
+    title: str
+    description: Optional[str] = None
+
+
+class BallotCreate(BallotBase):
+    pass
+
+
+class Ballot(BallotBase):
+    id: int
+    owner_id: int
+    created_date: datetime
+
+    class Config:
+        orm_mode = True
+
+
 class ElectionBase(BaseModel):
     title: str
     description: Optional[str] = None
@@ -51,6 +85,8 @@ class Election(ElectionBase):
     id: int
     owner_id: int
     created_date: datetime
+    candidates: List[Candidate] = []
+    ballots: List[Ballot] = []
 
     class Config:
         orm_mode = True

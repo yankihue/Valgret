@@ -55,3 +55,19 @@ async def create_election(
     await db.commit()
     await db.refresh(db_election)
     return db_election
+
+
+async def create_election_candidate(
+    db: AsyncSession, candidate: schema.CandidateCreate, election_id: int
+):
+    db_candidate = model.Candidate(**candidate.dict(), election_id=election_id)
+    db.add(db_candidate)
+    await db.commit()
+    await db.refresh(db_candidate)
+    return db_candidate
+
+
+async def get_candidates(db: AsyncSession, skip: int = 0, limit: int = 100):
+    db_execute = await db.execute(select(model.Candidate).offset(skip).limit(limit))
+    return db_execute.scalars().all()
+

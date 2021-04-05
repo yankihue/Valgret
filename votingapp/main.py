@@ -79,3 +79,21 @@ async def create_election(
     user_id: int, election: schema.ElectionCreate, db: AsyncSession = Depends(get_db)
 ):
     return await crud.create_election(db=db, election=election, user_id=user_id)
+
+
+@app.post("/elections/{election_id}/add_candidate/", response_model=schema.Candidate)
+async def create_election_candidate(
+    election_id: int,
+    candidate: schema.CandidateCreate,
+    db: AsyncSession = Depends(get_db),
+):
+    return await crud.create_election_candidate(
+        db=db, candidate=candidate, election_id=election_id
+    )
+
+
+@app.get("/elections/{election_id}", response_model=List[schema.Candidate])
+async def read_candidates(
+    skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
+):
+    return await crud.get_candidates(db, skip=skip, limit=limit)
