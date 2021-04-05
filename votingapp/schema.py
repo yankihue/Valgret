@@ -35,3 +35,20 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class ElectionBase(BaseModel):
+    title: str
+    description: Optional[str] = None
+
+
+class ElectionCreate(ElectionBase):
+    pass
+
+
+class Election(ElectionBase):
+    id: int
+    owner_id: int
+
+    class Config:
+        orm_mode = True

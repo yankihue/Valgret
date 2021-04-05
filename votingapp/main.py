@@ -66,3 +66,16 @@ async def read_items(
 ):
     return await crud.get_items(db, skip=skip, limit=limit)
 
+
+@app.get("/elections/", response_model=List[schema.Election])
+async def read_elections(
+    skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
+):
+    return await crud.get_elections(db, skip=skip, limit=limit)
+
+
+@app.post("/elections/create", response_model=schema.Election)
+async def create_election(
+    user_id: int, election: schema.ElectionCreate, db: AsyncSession = Depends(get_db)
+):
+    return await crud.create_election(db=db, election=election, user_id=user_id)

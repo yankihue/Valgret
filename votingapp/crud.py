@@ -40,3 +40,18 @@ async def create_user_item(db: AsyncSession, item: schema.ItemCreate, user_id: i
     await db.commit()
     await db.refresh(db_item)
     return db_item
+
+
+async def get_elections(db: AsyncSession, skip: int = 0, limit: int = 100):
+    db_execute = await db.execute(select(model.Election).offset(skip).limit(limit))
+    return db_execute.scalars().all()
+
+
+async def create_election(
+    db: AsyncSession, election: schema.ElectionCreate, user_id: int
+):
+    db_election = model.Election(**election.dict(), owner_id=user_id)
+    db.add(db_election)
+    await db.commit()
+    await db.refresh(db_election)
+    return db_election

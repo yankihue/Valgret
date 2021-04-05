@@ -13,6 +13,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     items = relationship("Item", back_populates="owner", lazy='noload')
+    elections = relationship("Election", back_populates="owner", lazy='noload')
 
 
 class Item(Base):
@@ -24,3 +25,15 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="items")
+
+
+class Election(Base):
+    __tablename__ = "elections"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True)
+    description = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("User", back_populates="elections")
+# candidates = relationship("Candidate", back_populates="elections")
