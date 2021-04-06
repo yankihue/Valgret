@@ -53,20 +53,6 @@ async def read_user(user_id: int, db: AsyncSession = Depends(get_db)):
     return db_user
 
 
-@app.post("/users/{user_id}/items/", response_model=schema.Item)
-async def create_item_for_user(
-    user_id: int, item: schema.ItemCreate, db: AsyncSession = Depends(get_db)
-):
-    return await crud.create_user_item(db=db, item=item, user_id=user_id)
-
-
-@app.get("/items/", response_model=List[schema.Item])
-async def read_items(
-    skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
-):
-    return await crud.get_items(db, skip=skip, limit=limit)
-
-
 @app.get("/elections/", response_model=List[schema.Election])
 async def read_elections(
     skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
@@ -93,7 +79,31 @@ async def create_election_candidate(
 
 
 @app.get("/elections/{election_id}", response_model=List[schema.Candidate])
-async def read_candidates(
-    skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)
+async def read_candidates(election_id: int, db: AsyncSession = Depends(get_db)):
+    db_candidate = await crud.get_candidates(db, election_id=election_id)
+    if db_candidate is None:
+        raise HTTPException(status_code=404, detail="Candidate not found")
+    return db_candidate
+
+
+@app.post("/elections/{election_id}/vote/", response_model=schema.Ballot)
+async def create_ballot(
+    election_id: int,
+    owner_id: int,
+    ballot: schema.BallotCreate,
+    db: AsyncSession = Depends(get_db),
 ):
-    return await crud.get_candidates(db, skip=skip, limit=limit)
+    return await crud.create_election_ballot(
+        db=db,
+        ballot=ballot,
+        election_id=election_id,
+        owner_id=owner_id,
+    )
+
+
+@app.get("/elections/{election_id}/results", response_model=List[schema.Ballot])
+async def read_ballots(election_id: int, db: AsyncSession = Depends(get_db)):
+    db_ballot = await crud.get_ballots(db, election_id=election_id)
+    if db_ballot is None:
+        raise HTTPException(status_code=404, detail="Ballot not found")
+    return db_ballot

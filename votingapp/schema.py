@@ -4,23 +4,6 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
-class ItemBase(BaseModel):
-    title: str
-    description: Optional[str] = None
-
-
-class ItemCreate(ItemBase):
-    pass
-
-
-class Item(ItemBase):
-    id: int
-    owner_id: int
-
-    class Config:
-        orm_mode = True
-
-
 class UserBase(BaseModel):
     email: str
 
@@ -32,7 +15,6 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-    items: List[Item] = []
 
     class Config:
         orm_mode = True
@@ -55,8 +37,8 @@ class Candidate(CandidateBase):
 
 
 class BallotBase(BaseModel):
-    title: str
-    description: Optional[str] = None
+    preference: str
+    pass
 
 
 class BallotCreate(BallotBase):
@@ -66,7 +48,6 @@ class BallotCreate(BallotBase):
 class Ballot(BallotBase):
     id: int
     owner_id: int
-    created_date: datetime
 
     class Config:
         orm_mode = True
