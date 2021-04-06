@@ -62,7 +62,7 @@ async def read_elections(
 
 @app.post("/elections/create", response_model=schema.Election)
 async def create_election(
-    user_id: int, election: schema.ElectionCreate, db: AsyncSession = Depends(get_db)
+    user_id: int, election: schema.ElectionBase, db: AsyncSession = Depends(get_db)
 ):
     return await crud.create_election(db=db, election=election, user_id=user_id)
 
@@ -70,7 +70,7 @@ async def create_election(
 @app.post("/elections/{election_id}/add_candidate/", response_model=schema.Candidate)
 async def create_election_candidate(
     election_id: int,
-    candidate: schema.CandidateCreate,
+    candidate: schema.CandidateBase,
     db: AsyncSession = Depends(get_db),
 ):
     return await crud.create_election_candidate(
@@ -90,7 +90,7 @@ async def read_candidates(election_id: int, db: AsyncSession = Depends(get_db)):
 async def create_ballot(
     election_id: int,
     owner_id: int,
-    ballot: schema.BallotCreate,
+    ballot: schema.BallotBase,
     db: AsyncSession = Depends(get_db),
 ):
     return await crud.create_election_ballot(

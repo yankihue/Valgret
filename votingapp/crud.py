@@ -35,7 +35,7 @@ async def get_elections(db: AsyncSession, skip: int = 0, limit: int = 100):
 
 
 async def create_election(
-    db: AsyncSession, election: schema.ElectionCreate, user_id: int
+    db: AsyncSession, election: schema.ElectionBase, user_id: int
 ):
     db_election = model.Election(**election.dict(), owner_id=user_id)
     db.add(db_election)
@@ -45,7 +45,7 @@ async def create_election(
 
 
 async def create_election_candidate(
-    db: AsyncSession, candidate: schema.CandidateCreate, election_id: int
+    db: AsyncSession, candidate: schema.CandidateBase, election_id: int
 ):
     db_candidate = model.Candidate(**candidate.dict(), election_id=election_id)
     db.add(db_candidate)
@@ -63,7 +63,7 @@ async def get_candidates(db: AsyncSession, election_id: int):
 
 async def create_election_ballot(
     db: AsyncSession,
-    ballot: schema.BallotCreate,
+    ballot: schema.BallotBase,
     election_id: int,
     owner_id: int,
 ):

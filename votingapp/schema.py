@@ -24,10 +24,6 @@ class CandidateBase(BaseModel):
     info: str
 
 
-class CandidateCreate(CandidateBase):
-    pass
-
-
 class Candidate(CandidateBase):
     id: int
     election_id: int
@@ -38,10 +34,6 @@ class Candidate(CandidateBase):
 
 class BallotBase(BaseModel):
     preference: str
-    pass
-
-
-class BallotCreate(BallotBase):
     pass
 
 
@@ -56,10 +48,6 @@ class Ballot(BallotBase):
 class ElectionBase(BaseModel):
     title: str
     description: Optional[str] = None
-
-
-class ElectionCreate(ElectionBase):
-    pass
 
 
 class Election(ElectionBase):
