@@ -13,7 +13,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     elections = relationship("Election", back_populates="owner", lazy="subquery")
-    ballots = relationship("Ballot", back_populates="owner", lazy="subquery")
+    ballots = relationship("Ballot", back_populates="owner", lazy="noload")
 
 
 class Election(Base):
@@ -26,7 +26,7 @@ class Election(Base):
     created_date = Column(DateTime(timezone=True), server_default=func.now())
     owner = relationship("User", back_populates="elections")
     candidates = relationship("Candidate", back_populates="owner", lazy="subquery")
-    ballots = relationship("Ballot", back_populates="election", lazy="subquery")
+    ballots = relationship("Ballot", back_populates="election", lazy="noload")
 
 
 # TODO: changed lazyload type from lazy="noload" to lazy="subquery"

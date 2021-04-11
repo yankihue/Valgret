@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-from . import model, schema
+from . import model, schema, ranking
 
 
 async def get_user(db: AsyncSession, user_id: int):
@@ -61,6 +61,9 @@ async def get_candidates(db: AsyncSession, election_id: int):
     return db_execute.scalars().all()
 
 
+# TODO: create vote as a list of character elements like
+# preference = ['A', 'B', 'C','D']
+
 async def create_election_ballot(
     db: AsyncSession,
     ballot: schema.BallotBase,
@@ -83,3 +86,12 @@ async def get_ballots(db: AsyncSession, election_id: int):
         select(model.Ballot).where(model.Ballot.election_id == election_id)
     )
     return db_execute.scalars().all()
+
+
+async def get_ranking(db: AsyncSession, election_id: int):
+    pref = []
+    ballots = await get_ballots(db, election_id)
+    for ballot in ballots:
+        pref.append(ballot.preference)
+    results = ranking.schulze(pref)
+    return results

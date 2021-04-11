@@ -27,7 +27,9 @@ async def get_db():
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {
+        "message": "Hello! Welcome to votingapp. Head on to the docs to get started."
+    }
 
 
 @app.post("/users/", response_model=schema.User)
@@ -86,6 +88,9 @@ async def read_candidates(election_id: int, db: AsyncSession = Depends(get_db)):
     return db_candidate
 
 
+# TODO: create vote as a list of character elements like
+# preference = ['A', 'B', 'C','D']
+
 @app.post("/elections/{election_id}/vote/", response_model=schema.Ballot)
 async def create_ballot(
     election_id: int,
@@ -101,9 +106,16 @@ async def create_ballot(
     )
 
 
-@app.get("/elections/{election_id}/results", response_model=List[schema.Ballot])
+@app.get("/elections/{election_id}/ballots", response_model=List[schema.Ballot])
 async def read_ballots(election_id: int, db: AsyncSession = Depends(get_db)):
     db_ballot = await crud.get_ballots(db, election_id=election_id)
     if db_ballot is None:
         raise HTTPException(status_code=404, detail="Ballot not found")
     return db_ballot
+
+
+@app.get("/elections/{election_id}/results")
+async def read_ranking(election_id: int, db: AsyncSession = Depends(get_db)):
+
+    return await crud.get_ranking(db=db, election_id=election_id,)
+ 
