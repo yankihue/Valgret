@@ -35,4 +35,4 @@ Pull requests are welcome.
 
 
 ## License
-[GPL-3.0 License]()
+[GPL-3.0]()
