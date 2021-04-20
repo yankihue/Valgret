@@ -15,7 +15,25 @@ to install required dependencies. Afterwards, create an .env file containing:
 ```
 SQLALCHEMY_DATABASE_URI = "postgresql+asyncpg://user:password@postgresserver/db"
 ```
-Modify the connection string for your own database server. Votingapp uses [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage migrations. 
+Modify the connection string for your own database server. 
+
+#### Docker container example: 
+For a postgresql docker image that was created with these settings:
+```bash
+docker run -d --name postgres -e POSTGRES_PASSWORD=admin -v ${HOME}/Desktop/postgres-data/:/var/lib/postgresql/data -p 5432:5432 postgres
+```
+the .env file will be
+```
+SQLALCHEMY_DATABASE_URI = "postgresql+asyncpg://postgres:admin@localhost/postgres"
+
+```
+
+
+Votingapp uses [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage migrations. 
+```bash
+alembic revision
+alembic upgrade head
+```
 
 You can run the app with:
 
