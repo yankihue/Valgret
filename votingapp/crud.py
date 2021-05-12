@@ -36,6 +36,7 @@ async def get_password_hash(password):
     return pwd_context.hash(password)
 
 
+# TODO: Remove plain password from POST request response
 async def create_user(db: AsyncSession, user: schema.UserCreate):
     hashed_password = await get_password_hash(user.password)
     db_user = model.User(email=user.email, hashed_password=hashed_password)
