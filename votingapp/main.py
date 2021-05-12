@@ -7,7 +7,12 @@ from . import crud, schema
 
 from .database import Base, engine
 
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+
+
 app = FastAPI()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 @app.on_event("startup")
@@ -23,6 +28,22 @@ async def get_db():
         yield session
     finally:
         await session.close()
+
+
+@app.post("/token", response_model=schema.Token)
+async def login(
+    form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)
+):
+    db_user = await crud.get_user_by_email(db, email=form_data.username)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    verification = await crud.verify_password(
+        plain_password=form_data.password, hashed_password=db_user.hashed_password
+    )
+    if not verification:
+        raise HTTPException(status_code=403, detail="Incorrect password")
+
+    return {"access_token": db_user.email, "token_type": "bearer"}
 
 
 @app.get("/")
@@ -91,6 +112,7 @@ async def read_candidates(election_id: int, db: AsyncSession = Depends(get_db)):
 # TODO: create vote as a list of character elements like
 # preference = ['A', 'B', 'C','D']
 
+
 @app.post("/elections/{election_id}/vote/", response_model=schema.Ballot)
 async def create_ballot(
     election_id: int,
@@ -117,5 +139,7 @@ async def read_ballots(election_id: int, db: AsyncSession = Depends(get_db)):
 @app.get("/elections/{election_id}/results")
 async def read_ranking(election_id: int, db: AsyncSession = Depends(get_db)):
 
-    return await crud.get_ranking(db=db, election_id=election_id,)
- 
+    return await crud.get_ranking(
+        db=db,
+        election_id=election_id,
+    )

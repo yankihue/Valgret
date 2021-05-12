@@ -4,6 +4,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from . import model, schema, ranking
 
+from passlib.context import CryptContext
+
+# TODO: isort
+
+# Specify return types for all functions for type hints
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 async def get_user(db: AsyncSession, user_id: int):
     db_execute = await db.execute(select(model.User).where(model.User.id == user_id))
@@ -20,8 +28,16 @@ async def get_users(db: AsyncSession, skip: int = 0, limit: int = 100):
     return db_execute.scalars().all()
 
 
+async def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+async def get_password_hash(password):
+    return pwd_context.hash(password)
+
+
 async def create_user(db: AsyncSession, user: schema.UserCreate):
-    hashed_password = user.password
+    hashed_password = await get_password_hash(user.password)
     db_user = model.User(email=user.email, hashed_password=hashed_password)
     db.add(db_user)
     await db.commit()
@@ -63,6 +79,7 @@ async def get_candidates(db: AsyncSession, election_id: int):
 
 # TODO: create vote as a list of character elements like
 # preference = ['A', 'B', 'C','D']
+
 
 async def create_election_ballot(
     db: AsyncSession,
