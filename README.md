@@ -1,6 +1,6 @@
-# Votingapp API
+# Valgret API
 
-Votingapp is an open-source project that implements the [Schulze method](https://en.wikipedia.org/wiki/Schulze_method) of voting complete with a user interface and database. It was created for organizations of any size to provide tools for internal decision-making, public polling and transparency.
+Valgret is an open-source project that implements the [Schulze method](https://en.wikipedia.org/wiki/Schulze_method) of voting complete with a user interface and database. It was created for organizations of any size to provide tools for internal decision-making, public polling and transparency.
 
 This module was written with [FastAPI](https://fastapi.tiangolo.com) using an asynchronous postgresql database. The complementary front end code can be found in [this repository]().
 ## Installation
@@ -25,7 +25,6 @@ docker run -d --name postgres -e POSTGRES_PASSWORD=admin -v ${HOME}/Desktop/post
 the .env file will be
 ```
 SQLALCHEMY_DATABASE_URI = "postgresql+asyncpg://postgres:admin@localhost/postgres"
-
 ```
 
 
