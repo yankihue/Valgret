@@ -19,6 +19,7 @@ asyncpg = "^0.22.0"
 python-jose = "^3.2.0"
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-multipart = "^0.0.5"
+isort = "^5.8.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"

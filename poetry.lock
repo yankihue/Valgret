@@ -212,7 +212,7 @@ python-versions = ">=3.6"
 name = "isort"
 version = "5.8.0"
 description = "A Python utility / library to sort Python imports."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6,<4.0"
 
@@ -560,7 +560,7 @@ standard = ["websockets (>=8.0.0,<9.0.0)", "watchgod (>=0.6)", "python-dotenv (>
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.5"
-content-hash = "43dd12a2061a026dcdedbdd03e88b653926f8f988f1dd4fa2298b4d7d2053d8a"
+content-hash = "486b0c23317818ccd336a2fc2318c5a2cf9b537b289c1dcd469c51ee46fe24cf"
 
 [metadata.files]
 alembic = [

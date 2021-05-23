@@ -1,14 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException
 from typing import List
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from . import crud, schema
-
-
-from .database import Base, engine
-
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from . import crud, schema
+from .database import Base, engine
 
 app = FastAPI()
 

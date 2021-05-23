@@ -1,10 +1,8 @@
+from passlib.context import CryptContext
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
-from . import model, schema, ranking
-
-from passlib.context import CryptContext
+from . import model, ranking, schema
 
 # TODO: isort
 
