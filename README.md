@@ -1,5 +1,5 @@
 <a href="https://github.com/yankihue/Valgret">
-    <img src="/logo.png" alt="logo" title="Valgret" align="right" height="100" />
+    <img src="/logo.png" alt="logo" title="Valgret" align="right" height="80" />
 </a>
 
 # Valgret API
