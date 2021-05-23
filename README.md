@@ -1,3 +1,4 @@
+
 <a href="https://github.com/yankihue/Valgret">
     <img src="/logo.png" alt="logo" title="Valgret" align="right" height="80" />
 </a>
@@ -32,7 +33,7 @@ SQLALCHEMY_DATABASE_URI = "postgresql+asyncpg://postgres:admin@localhost/postgre
 ```
 
 
-Votingapp uses [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage migrations. 
+Valgret uses [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage migrations. 
 ```bash
 alembic revision
 alembic upgrade head
