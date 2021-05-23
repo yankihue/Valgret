@@ -1,3 +1,7 @@
+<a href="https://github.com/yankihue/Valgret">
+    <img src="/logo.png" alt="logo" title="Valgret" align="right" height="60" />
+</a>
+
 # Valgret API
 
 Valgret is an open-source project that implements the [Schulze method](https://en.wikipedia.org/wiki/Schulze_method) of voting complete with a user interface and database. It was created for organizations of any size to provide tools for internal decision-making, public polling and transparency.
