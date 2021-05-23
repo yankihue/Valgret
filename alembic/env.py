@@ -1,12 +1,13 @@
 import asyncio
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-from sqlalchemy.ext.asyncio import AsyncEngine
-from dotenv import find_dotenv, load_dotenv
 import os
 import sys
-from alembic import context
+
+from dotenv import find_dotenv, load_dotenv
+from sqlalchemy import engine_from_config, pool
+from sqlalchemy.ext.asyncio import AsyncEngine
+
 import votingapp.model as model
+from alembic import context
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(find_dotenv())
