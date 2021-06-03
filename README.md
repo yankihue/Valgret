@@ -9,6 +9,7 @@ Valgret is an open-source project that implements the [Schulze method](https://e
 
 This module was written with [FastAPI](https://fastapi.tiangolo.com) using an asynchronous postgresql database. The complementary front end code can be found in [this repository]().
 ## Installation
+Valgret uses [poetry](https://python-poetry.org/) for dependency management.
 
 Clone the repository and run:
 ```bash
@@ -51,10 +52,19 @@ Afterwards you can check [localhost:8000/docs]() for interactive API docs and mo
 
 For a full list of features and how to access them please refer to the [documentation](). 
 
+## Tests
+Activate the virtual environment if you're not in it
+```bash
+poetry shell
+```
+and make sure a database server is running. To run the tests:
+```bash
+pytest
+```
 
 ## Contributing
 Pull requests are welcome. 
 
 
 ## License
-[GPL-3.0]()
+[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
