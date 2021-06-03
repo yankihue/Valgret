@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
-from .main import app
+from ..main import app
 
 
 @pytest.mark.asyncio
@@ -42,6 +42,20 @@ async def test_read_existent_user():
     }
 
 
+# @pytest.mark.asyncio
+# async def test_create_inexistant_user():
+#     async with AsyncClient(app=app, base_url="http://test") as ac:
+#         response = await ac.post(
+#             "/users/",
+#             json={
+#                 "email": "test test",
+#                 "password": "test123",
+#             },
+#         )
+#     assert response.status_code == 400
+#     assert response.json() == {"detail": "Email already registered"}
+
+
 @pytest.mark.asyncio
 async def test_create_existant_user():
     async with AsyncClient(app=app, base_url="http://test") as ac:
@@ -53,6 +67,4 @@ async def test_create_existant_user():
             },
         )
     assert response.status_code == 400
-    assert response.json() == {
-        "detail": "Email already registered"
-    }
+    assert response.json() == {"detail": "Email already registered"}
