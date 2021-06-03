@@ -52,8 +52,8 @@ async def test_read_existent_user():
 #                 "password": "test123",
 #             },
 #         )
-#     assert response.status_code == 400
-#     assert response.json() == {"detail": "Email already registered"}
+#     assert response.status_code == 200
+#     assert response.json() == {"id": "3"}
 
 
 @pytest.mark.asyncio
@@ -68,3 +68,23 @@ async def test_create_existant_user():
         )
     assert response.status_code == 400
     assert response.json() == {"detail": "Email already registered"}
+
+
+@pytest.mark.asyncio
+async def test_create_election():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post(
+            "/elections/create?user_id=1",
+            json={
+                "title": "test election",
+                "description": "testing.",
+            },
+        )
+    assert response.status_code == 200
+
+
+@pytest.mark.asyncio
+async def test_read_elections():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/elections/")
+    assert response.status_code == 200
