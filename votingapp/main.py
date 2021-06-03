@@ -46,7 +46,7 @@ async def login(
 @app.get("/")
 async def root():
     return {
-        "message": "Hello! Welcome to votingapp. Head on to the docs to get started."
+        "message": "Hello! Welcome to Valgret. Head on to the docs to get started."
     }
 
 
