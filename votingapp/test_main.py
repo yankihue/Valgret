@@ -43,7 +43,7 @@ async def test_read_existent_user():
 
 
 @pytest.mark.asyncio
-async def test_create_user():
+async def test_create_existant_user():
     async with AsyncClient(app=app, base_url="http://test") as ac:
         response = await ac.post(
             "/users/",
@@ -52,7 +52,7 @@ async def test_create_user():
                 "password": "test123",
             },
         )
-    assert response.status_code == 200
+    assert response.status_code == 400
     assert response.json() == {
-        {"email": "test test", "id": 4, "is_active": "true", "elections": []}
+        "detail": "Email already registered"
     }
