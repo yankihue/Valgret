@@ -34,12 +34,6 @@ async def test_read_existent_user():
     async with AsyncClient(app=app, base_url="http://test") as ac:
         response = await ac.get("/users/1")
     assert response.status_code == 200
-    assert response.json() == {
-        "email": "user 1",
-        "id": 1,
-        "is_active": True,
-        "elections": [],
-    }
 
 
 # @pytest.mark.asyncio
@@ -88,3 +82,12 @@ async def test_read_elections():
     async with AsyncClient(app=app, base_url="http://test") as ac:
         response = await ac.get("/elections/")
     assert response.status_code == 200
+
+
+@pytest.mark.asyncio
+async def test_read_candidates():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/elections/1")
+    assert response.status_code == 200
+
+# TODO: move tests to test database (that will be created from scratch for every test)
